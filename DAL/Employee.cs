@@ -7,6 +7,8 @@ public class Employee
     public string Position { get; set; } = String.Empty;
     public string Address { get; set; } = String.Empty;     
     public string Phone { get; set; } = String.Empty;
+    public string PictureUrl { get; set; } = String.Empty;
+
 
     public int? ManagerId { get; set; }
     public Employee Manager { get; set; }

@@ -13,6 +13,7 @@ namespace DAL
         public ReportStatusEnum ReportStatus { get; set; }
         public string ReportText { get; set; } = String.Empty;
         public int EmployeeId { get; set; }
+        public int ManagerId { get; set; }
         public Employee Employee { get; set; }
     }
 }

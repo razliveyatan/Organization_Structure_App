@@ -27,15 +27,19 @@ namespace DAL
                 .WithOne(e => e.Employee)
                 .HasForeignKey(e => e.EmployeeId);
             modelBuilder.Entity<Employee>()
+                .HasMany(e => e.Reports)
+                .WithOne()
+                .HasForeignKey(e => e.ManagerId);
+            modelBuilder.Entity<Employee>()
                 .HasMany(e => e.CustomTasks)
                 .WithOne(e => e.Employee)
                 .HasForeignKey(e => e.EmployeeId);
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.CustomTasks)
-                .WithOne(e => e.Manager)
+            modelBuilder.Entity<CustomTask>()
+                .HasOne(e => e.Manager)
+                .WithMany()
                 .HasForeignKey(e => e.ManagerId);
             base.OnModelCreating(modelBuilder);
         }
-        
+
     }
 }
