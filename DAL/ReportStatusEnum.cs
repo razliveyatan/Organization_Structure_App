@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public enum ReportStatusEnum
+    public enum TaskStatusEnum
     {
         New,
         InProgress,
