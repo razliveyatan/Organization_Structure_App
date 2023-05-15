@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{7
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ui", "UI\ui.esproj", "{F29C9C63-55BA-415F-A5E8-B01548BDFFBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{8FDA2509-2BED-4B85-BA76-503EF1CA0AF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{2452B117-78BC-4384-965C-3307B1D71B3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{F29C9C63-55BA-415F-A5E8-B01548BDFFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F29C9C63-55BA-415F-A5E8-B01548BDFFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F29C9C63-55BA-415F-A5E8-B01548BDFFBC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8FDA2509-2BED-4B85-BA76-503EF1CA0AF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FDA2509-2BED-4B85-BA76-503EF1CA0AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FDA2509-2BED-4B85-BA76-503EF1CA0AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FDA2509-2BED-4B85-BA76-503EF1CA0AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2452B117-78BC-4384-965C-3307B1D71B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2452B117-78BC-4384-965C-3307B1D71B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2452B117-78BC-4384-965C-3307B1D71B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2452B117-78BC-4384-965C-3307B1D71B3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
