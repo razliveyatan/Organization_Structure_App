@@ -12,7 +12,7 @@ namespace DAL
         public int ManagerId { get; set; }
         public int EmployeeId { get; set; }
 
-        public string CustomTaskText { get; set; }        
+        public string CustomTaskText { get; set; } = String.Empty;       
         public DateTime CustomTaskDueDate { get; set; }
         public DateTime CustomTaskAssignDate { get; set; }
         
