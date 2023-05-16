@@ -1,5 +1,5 @@
 ﻿using BL.IServices;
-using DAL;
+using DAL.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace BL.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        public List<Task> GetAssignedTasksToEmployee(Employee employee)
+        public ICollection<CustomTask> GetAssignedTasksToEmployee(Employee employee)
         {
             throw new NotImplementedException();
         }

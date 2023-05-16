@@ -1,9 +1,9 @@
-﻿using DAL;
+﻿using DAL.Types;
 
 namespace BL.IServices
 {
     public interface IManagerService
     {
-        List<Report> GetReportsFromSubordinates(Employee manager);
+        ICollection<Report> GetReportsFromSubordinates(Employee manager);
     }
 }

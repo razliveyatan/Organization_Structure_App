@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace DAL.Types
 {
     public class Org_Structure_DbContext : DbContext
     {

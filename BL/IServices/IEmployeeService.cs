@@ -1,9 +1,9 @@
-﻿using DAL;
+﻿using DAL.Types;
 
 namespace BL.IServices
 {
     public interface IEmployeeService
     {
-        List<Task> GetAssignedTasksToEmployee(Employee employee);
+        ICollection<CustomTask> GetAssignedTasksToEmployee(Employee employee);
     }
 }

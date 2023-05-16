@@ -1,5 +1,5 @@
 ﻿using BL.IServices;
-using DAL;
+using DAL.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +10,12 @@ namespace BL.Services
 {
     public class ReportService : IReportService
     {
-        public List<Report> GetReportsByEmployee(Employee employee)
+        public ICollection<Report> GetReportsByEmployee(Employee employee)
         {
             throw new NotImplementedException();
         }
 
-        public bool SubmitReport(Report report)
+        public void SubmitReport(Report report)
         {
             throw new NotImplementedException();
         }

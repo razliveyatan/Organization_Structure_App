@@ -1,10 +1,10 @@
-﻿using DAL;
+﻿using DAL.Types;
 
 namespace BL.IServices
 {
     public interface ITaskService
     {
-        bool AssignTaskToEmployee(CustomTask customTask);
-        List<Task> GetTasksByEmployee(Employee employee);
+        void AssignTaskToEmployee(CustomTask customTask);
+        ICollection<CustomTask> GetTasksByEmployee(Employee employee);
     }
 }

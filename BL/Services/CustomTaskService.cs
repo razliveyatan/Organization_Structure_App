@@ -1,23 +1,19 @@
 ﻿using BL.IServices;
-using DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DAL.Types;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BL.Services
 {
     public class CustomTaskService : ITaskService
     {
-        public bool AssignTaskToEmployee(CustomTask customTask)
+        public void AssignTaskToEmployee(CustomTask customTask)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public List<Task> GetTasksByEmployee(Employee employee)
+        public ICollection<CustomTask> GetTasksByEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+         
         }
     }
 }

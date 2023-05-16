@@ -1,8 +1,8 @@
-﻿using DAL;
+﻿using DAL.Types;
 
 namespace BL.IServices;
 public interface IReportService
 {
-    bool SubmitReport(Report report);
-    List<Report> GetReportsByEmployee(Employee employee);
+    void SubmitReport(Report report);
+    ICollection<Report> GetReportsByEmployee(Employee employee);
 }

@@ -1,5 +1,5 @@
 ﻿using BL.IServices;
-using DAL;
+using DAL.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +11,16 @@ namespace BL.Services
     public class ManagerService:IManagerService
     {           
 
-        public List<Report> GetReportsFromSubordinates(Employee manager)
+        public ICollection<Report> GetReportsFromSubordinates(Employee manager)
         {
-            throw new NotImplementedException();
+            if (manager != null)
+            {
+                return manager.Reports;
+            }
+            else
+            {
+                throw new Exception("Manager is not valid");
+            }
         }        
         
     }
