@@ -1,4 +1,5 @@
 ﻿using BL.IServices;
+using DAL.Repositories;
 using DAL.Types;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,44 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : IEmployeeService, IReportService
     {
-        public ICollection<CustomTask> GetAssignedTasksToEmployee(Employee employee)
+        private readonly LoggerService _loggerService;
+        private readonly EmployeeRepository _employeeRepository;
+        private readonly ReportRepository _reportRepository;
+
+        public EmployeeService(EmployeeRepository employeeRepository, ReportRepository reportRepository, LoggerService loggerService)
         {
-            throw new NotImplementedException();
+            _employeeRepository = employeeRepository;
+            _reportRepository = reportRepository;
+            _loggerService = loggerService;
+        }
+
+        public async Task<ICollection<CustomTask>> GetCustomTasksToEmployee(int employeeId)
+        {
+            try
+            {
+                return await _employeeRepository.GetCustomTasksByEmployee(employeeId);
+            }
+            catch (Exception ex)
+            {
+                _loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(GetCustomTasksToEmployee));
+            }
+            return null;
+        }       
+
+        public void SubmitReport(Report report)
+        {
+            try
+            {
+                _reportRepository.AddReport(report);
+                _reportRepository.SaveChange();
+            }
+            catch (Exception ex)
+            {
+
+                _loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(SubmitReport));
+            }
         }
     }
 }

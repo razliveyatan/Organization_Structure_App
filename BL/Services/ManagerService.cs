@@ -1,4 +1,5 @@
 ﻿using BL.IServices;
+using DAL.Repositories;
 using DAL.Types;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,60 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    public class ManagerService:IManagerService
-    {           
+    public class ManagerService : IManagerService, IEmployeeService, ITaskService
+    {
+        private readonly LoggerService _loggerService;
+        private readonly EmployeeRepository _employeeRepository;
+        private readonly CustomTaskRepository _taskRepository;
 
-        public ICollection<Report> GetReportsFromSubordinates(Employee manager)
+        public ManagerService(EmployeeRepository employeeRepository, CustomTaskRepository taskRepository, LoggerService loggerService)
         {
-            if (manager != null)
+            _employeeRepository = employeeRepository;
+            _taskRepository = taskRepository;
+            _loggerService = loggerService;
+        }
+
+        public void AssignTaskToEmployee(CustomTask customTask)
+        {
+            try
             {
-                return manager.Reports;
+                if (customTask != null)
+                {
+                    _taskRepository.AddCustomTask(customTask);
+                    _taskRepository.SaveChange();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("Manager is not valid");
+                _loggerService.LogError(ex.Message,"ManagerService","AssignTaskToEmployee");
             }
-        }        
-        
+        }
+        public async Task<ICollection<Report>> GetReportsFromSubordinates(int managerId)
+        {
+            try
+            {
+                return await _employeeRepository.GetReportsFromSubordinates(managerId);
+            }
+            catch (Exception ex)
+            {
+
+                _loggerService.LogError(ex.Message, "ManagerService", "GetReportsFromSubordinates");
+            }
+            return null;            
+        }
+
+        public async Task<ICollection<CustomTask>> GetCustomTasksToEmployee(int employeeId)
+        {
+            try
+            {
+                return await _employeeRepository.GetCustomTasksByEmployee(employeeId);
+            }
+            catch (Exception ex)
+            {
+
+                _loggerService.LogError(ex.Message, "ManagerService", "GetCustomTasksToEmployee");
+            }
+            return null;            
+        }
     }
 }

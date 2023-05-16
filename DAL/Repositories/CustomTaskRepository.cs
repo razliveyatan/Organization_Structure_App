@@ -1,4 +1,6 @@
 ﻿using DAL.Types;
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,26 +23,21 @@ namespace DAL.Repositories
         }
 
         public void DeleteCustomTask(CustomTask customTask)
-        {
+        {            
             dbContext.CustomTasks.Remove(customTask);
         }
 
-        public CustomTask GetCustomTaskById(int id)
-        {
-            return dbContext.CustomTasks.FirstOrDefault(x => x.CustomTaskId == id);
+        public async Task<CustomTask> GetCustomTaskById(int id)
+        {           
+                return await dbContext?.CustomTasks?.FirstOrDefaultAsync(x => x.CustomTaskId == id);                     
         }
 
-        public ICollection<CustomTask> GetCustomTasksByEmployee(Employee employee)
-        {
-            return dbContext.CustomTasks.Where(x => x.EmployeeId == employee.EmployeeId).ToList();
-        }
-
-        public CustomTask EditCustomTask(CustomTask customTask)
+        public async Task<CustomTask> EditCustomTask(CustomTask customTask)
         {
             var customTaskToEdit = dbContext.CustomTasks.FirstOrDefault(x => x.CustomTaskId == customTask.CustomTaskId);
             customTaskToEdit.CustomTaskText = customTask.CustomTaskText;
             customTaskToEdit.CustomTaskDueDate = customTask.CustomTaskDueDate;
-            customTaskToEdit.CustomTaskAssignDate = customTask.CustomTaskAssignDate;
+            customTaskToEdit.CustomTaskAssignDate = customTask.CustomTaskAssignDate;            
             return customTaskToEdit;
         }
         public void SaveChange()

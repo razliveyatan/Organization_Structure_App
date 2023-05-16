@@ -1,27 +1,32 @@
 ﻿using BL.IServices;
 using DAL.Repositories;
 using DAL.Types;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.Services
 {
     public class ReportService : IReportService
     {
         private readonly ReportRepository _reportRepository;
-
-        public ReportService(ReportRepository reportRepository)
+        private readonly EmployeeRepository _employeeRepository;
+        private readonly LoggerService _loggerService;
+        public ReportService(ReportRepository reportRepository, EmployeeRepository employeeRepository, LoggerService loggerService)
         {
             _reportRepository = reportRepository;
+            _employeeRepository = employeeRepository;
+            _loggerService = loggerService;
+
         }
         public ICollection<Report> GetReportsByEmployee(Employee employee)
         {
-            return _reportRepository.GetReportsByEmployee(employee);
+            try
+            {
+                return _employeeRepository.GetReportsByEmployee(employee);
+            }
+            catch (Exception ex)
+            {
+                _loggerService.LogError(ex.Message, nameof(ReportService), nameof(GetReportsByEmployee));
+            }
+            return null;            
         }
 
         public void SubmitReport(Report report)
@@ -34,9 +39,8 @@ namespace BL.Services
             }
             catch (Exception ex)
             {
-                
-            }
-            
+                _loggerService.LogError(ex.Message, nameof(ReportService), nameof(SubmitReport));
+            }            
         }
     }
 }

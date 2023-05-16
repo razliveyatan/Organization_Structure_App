@@ -4,6 +4,6 @@ namespace BL.IServices
 {
     public interface IManagerService
     {
-        ICollection<Report> GetReportsFromSubordinates(Employee manager);
+        Task<ICollection<Report>> GetReportsFromSubordinates(int managerId);
     }
 }

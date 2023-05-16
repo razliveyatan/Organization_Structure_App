@@ -4,6 +4,6 @@ namespace BL.IServices
 {
     public interface IEmployeeService
     {
-        ICollection<CustomTask> GetAssignedTasksToEmployee(Employee employee);
+        Task<ICollection<CustomTask>> GetCustomTasksToEmployee(int employeeId);
     }
 }

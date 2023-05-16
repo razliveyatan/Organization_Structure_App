@@ -1,4 +1,5 @@
 ﻿using DAL.Types;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +24,14 @@ namespace DAL.Repositories
         {
             dbContext.Reports.Remove(report);
         }
-        public Report GetReportById(int id)
+        public async Task<Report> GetReportById(int id)
         {
-            return dbContext.Reports.FirstOrDefault(x => x.ReportId == id);
-        }
-        public ICollection<Report> GetReportsByEmployee(Employee employee)
-        {
-            return dbContext.Reports.Where(x => x.EmployeeId == employee.EmployeeId).ToList();
-        }
+            return await dbContext.Reports.FirstOrDefaultAsync(x => x.ReportId == id);
+        }       
 
-        public Report EditReport(Report report)
+        public async Task<Report> EditReport(Report report)
         {
-            var reportToEdit = dbContext.Reports.FirstOrDefault(x => x.ReportId == report.ReportId);
+            var reportToEdit = await dbContext.Reports.FirstOrDefaultAsync(x => x.ReportId == report.ReportId);
             reportToEdit.ReportText = report.ReportText;
             reportToEdit.ReportDate = report.ReportDate;
             return reportToEdit;

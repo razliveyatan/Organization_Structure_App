@@ -4,5 +4,5 @@ namespace BL.IServices;
 public interface IReportService
 {
     void SubmitReport(Report report);
-    ICollection<Report> GetReportsByEmployee(Employee employee);
+    
 }
