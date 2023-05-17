@@ -17,6 +17,6 @@
     <Folder Include="src\types\constants\" />
     <Folder Include="src\UI\buttons\" />
     <Folder Include="src\UI\modals\" />
-    <Folder Include="src\UI\customComponents\" />
+    <Folder Include="src\UI\helpers\" />
   </ItemGroup>
 </Project>
