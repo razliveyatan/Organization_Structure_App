@@ -13,5 +13,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="pages\" />
+    <Folder Include="src\types\interfaces\" />
+    <Folder Include="src\types\constants\" />
+    <Folder Include="src\UI\" />
   </ItemGroup>
 </Project>
