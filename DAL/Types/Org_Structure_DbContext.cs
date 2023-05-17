@@ -9,12 +9,16 @@ namespace DAL.Types
 {
     public class Org_Structure_DbContext : DbContext
     {
+        public Org_Structure_DbContext(DbContextOptions<Org_Structure_DbContext> options) : base(options)
+        {
+        }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<CustomTask> CustomTasks { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Server=DESKTOP-5Q4NC7V\SQLEXPRESS;Database=Org_Structure_Db;Trusted_Connection=True;");
+            string databasePath = "Org_Structure_Db.db";
+            optionsBuilder.UseSqlite($"Data Source={databasePath};");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

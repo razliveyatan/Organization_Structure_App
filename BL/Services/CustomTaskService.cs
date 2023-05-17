@@ -8,13 +8,18 @@ namespace BL.Services
 {
     public class CustomTaskService : ITaskService
     {
-        private readonly LoggerService _loggerService;
+        //private readonly LoggerService _loggerService;
         private readonly CustomTaskRepository _customTaskRepository;
 
-        public CustomTaskService( CustomTaskRepository customTaskRepository, LoggerService loggerService)
+        //public CustomTaskService( CustomTaskRepository customTaskRepository, LoggerService loggerService)
+        //{
+        //    _customTaskRepository = customTaskRepository;
+        //    _loggerService = loggerService;   
+        //}
+
+        public CustomTaskService(CustomTaskRepository customTaskRepository)
         {
-            _customTaskRepository = customTaskRepository;
-            _loggerService = loggerService;   
+            _customTaskRepository = customTaskRepository;            
         }
 
         public void AssignTaskToEmployee(CustomTask customTask)
@@ -26,7 +31,8 @@ namespace BL.Services
             }
 			catch (Exception ex)
 			{
-                _loggerService.LogError(ex.Message, nameof(CustomTaskService), nameof(AssignTaskToEmployee));
+                throw new Exception(ex.Message);
+                //_loggerService.LogError(ex.Message, nameof(CustomTaskService), nameof(AssignTaskToEmployee));
             }
         }
     }

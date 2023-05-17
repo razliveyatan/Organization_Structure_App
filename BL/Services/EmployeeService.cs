@@ -11,15 +11,21 @@ namespace BL.Services
 {
     public class EmployeeService : IEmployeeService, IReportService
     {
-        private readonly LoggerService _loggerService;
+        //private readonly LoggerService _loggerService;
         private readonly EmployeeRepository _employeeRepository;
         private readonly ReportRepository _reportRepository;
 
-        public EmployeeService(EmployeeRepository employeeRepository, ReportRepository reportRepository, LoggerService loggerService)
+        //public EmployeeService(EmployeeRepository employeeRepository, ReportRepository reportRepository, LoggerService loggerService)
+        //{
+        //    _employeeRepository = employeeRepository;
+        //    _reportRepository = reportRepository;
+        //    _loggerService = loggerService;
+        //}
+
+        public EmployeeService(EmployeeRepository employeeRepository, ReportRepository reportRepository)
         {
             _employeeRepository = employeeRepository;
-            _reportRepository = reportRepository;
-            _loggerService = loggerService;
+            _reportRepository = reportRepository;            
         }
 
         public async Task<ICollection<CustomTask>> GetCustomTasksToEmployee(int employeeId)
@@ -30,7 +36,8 @@ namespace BL.Services
             }
             catch (Exception ex)
             {
-                _loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(GetCustomTasksToEmployee));
+                //_loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(GetCustomTasksToEmployee));
+                throw new Exception(ex.Message);
             }
             return null;
         }       
@@ -44,8 +51,8 @@ namespace BL.Services
             }
             catch (Exception ex)
             {
-
-                _loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(SubmitReport));
+                throw new Exception(ex.Message);
+                //_loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(SubmitReport));
             }
         }
     }

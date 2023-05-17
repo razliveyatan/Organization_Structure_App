@@ -11,15 +11,21 @@ namespace BL.Services
 {
     public class ManagerService : IManagerService, IEmployeeService, ITaskService
     {
-        private readonly LoggerService _loggerService;
+        //private readonly LoggerService _loggerService;
         private readonly EmployeeRepository _employeeRepository;
         private readonly CustomTaskRepository _taskRepository;
 
-        public ManagerService(EmployeeRepository employeeRepository, CustomTaskRepository taskRepository, LoggerService loggerService)
+        //public ManagerService(EmployeeRepository employeeRepository, CustomTaskRepository taskRepository, LoggerService loggerService)
+        //{
+        //    _employeeRepository = employeeRepository;
+        //    _taskRepository = taskRepository;
+        //    _loggerService = loggerService;
+        //}
+
+        public ManagerService(EmployeeRepository employeeRepository, CustomTaskRepository taskRepository)
         {
             _employeeRepository = employeeRepository;
-            _taskRepository = taskRepository;
-            _loggerService = loggerService;
+            _taskRepository = taskRepository;            
         }
 
         public void AssignTaskToEmployee(CustomTask customTask)
@@ -34,7 +40,8 @@ namespace BL.Services
             }
             catch (Exception ex)
             {
-                _loggerService.LogError(ex.Message,"ManagerService","AssignTaskToEmployee");
+                throw new Exception(ex.Message);
+                //_loggerService.LogError(ex.Message,"ManagerService","AssignTaskToEmployee");
             }
         }
         public async Task<ICollection<Report>> GetReportsFromSubordinates(int managerId)
@@ -45,8 +52,8 @@ namespace BL.Services
             }
             catch (Exception ex)
             {
-
-                _loggerService.LogError(ex.Message, "ManagerService", "GetReportsFromSubordinates");
+                throw new Exception(ex.Message);
+                //_loggerService.LogError(ex.Message, "ManagerService", "GetReportsFromSubordinates");
             }
             return null;            
         }
@@ -59,8 +66,8 @@ namespace BL.Services
             }
             catch (Exception ex)
             {
-
-                _loggerService.LogError(ex.Message, "ManagerService", "GetCustomTasksToEmployee");
+                throw new Exception(ex.Message);
+                //_loggerService.LogError(ex.Message, "ManagerService", "GetCustomTasksToEmployee");
             }
             return null;            
         }

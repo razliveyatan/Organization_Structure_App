@@ -34,7 +34,7 @@ namespace DAL.Repositories
 
         public async Task<CustomTask> EditCustomTask(CustomTask customTask)
         {
-            var customTaskToEdit = dbContext.CustomTasks.FirstOrDefault(x => x.CustomTaskId == customTask.CustomTaskId);
+            var customTaskToEdit = await dbContext.CustomTasks.FirstOrDefaultAsync(x => x.CustomTaskId == customTask.CustomTaskId);
             customTaskToEdit.CustomTaskText = customTask.CustomTaskText;
             customTaskToEdit.CustomTaskDueDate = customTask.CustomTaskDueDate;
             customTaskToEdit.CustomTaskAssignDate = customTask.CustomTaskAssignDate;            

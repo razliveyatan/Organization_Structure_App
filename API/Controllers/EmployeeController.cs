@@ -1,5 +1,6 @@
-﻿using BL.Services;
-using DAL.Types
+﻿using API.Models;
+using BL.IServices;
+using BL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,26 +11,41 @@ namespace API.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase    {
         private readonly EmployeeService _employeeService;
-        private readonly LoggerService _loggerService;
+        //private readonly LoggerService _loggerService;
 
-        public EmployeeController(EmployeeService employeeService, LoggerService loggerService)
+        //public EmployeeController(EmployeeService employeeService, LoggerService loggerService)
+        //{
+        //    _employeeService = employeeService;
+        //    _loggerService = loggerService;
+        //}
+
+        public EmployeeController(EmployeeService employeeService)
         {
             _employeeService = employeeService;
-            _loggerService = loggerService;
         }
 
-        public async Task<ICollection<Report>> GetReportsByEmployee(Employee employee)
-        {
-            if (employee == null) return null;
+        [HttpGet("get-tasks-to-employee")]
+        public async Task<IActionResult> GetCustomTasksToEmployee(int employeeId = 0)
+        {            
             try
             {
-                var reports = await _employeeService.GetReportsByEmployee(employee);
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new ValidationViewModel(ModelState));
+                }
+                var reports = await _employeeService.GetCustomTasksToEmployee(employeeId);
+                if (reports == null) return Ok(new ValidationViewModel(ModelState));
+
+                return Ok(new ValidationViewModel(ModelState)
+                {
+                    RelatedDate = reports
+                });
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.Message);
             }
-            return null;
+            return StatusCode(500);
         }   
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL.IServices
 {
-    public interface ILogger
+    public interface ILoggerService
     {
         void Log(string message);
     }

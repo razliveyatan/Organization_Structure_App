@@ -1,4 +1,5 @@
-﻿using BL.Services;
+﻿using API.Models;
+using BL.Services;
 using System.Text.Json;
 
 namespace API.Middleware

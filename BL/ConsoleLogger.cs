@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class ConsoleLogger : ILogger
+    public class ConsoleLogger : ILoggerService
     {
         public void Log(string message)
         {

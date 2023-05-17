@@ -1,4 +1,14 @@
-using API.Middleware;
+using BL.Services;
+using BL.IServices;
+using DAL.Repositories;
+using DAL.Types;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +18,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//builder.Services.AddScoped<ILoggerService, LoggerService>();
+builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<CustomTaskService>();
+builder.Services.AddScoped<ReportService>();
+builder.Services.AddScoped<ManagerService>();
+builder.Services.AddScoped<ReportRepository>();
+builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddDbContext<Org_Structure_DbContext>((options) => {
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+builder.Services.AddScoped<CustomTaskRepository>();
 
 var app = builder.Build();
 
@@ -17,12 +38,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 app.UseAuthorization();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.MapControllers();
 
 app.Run();

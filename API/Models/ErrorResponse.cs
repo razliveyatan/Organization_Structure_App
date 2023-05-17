@@ -1,4 +1,4 @@
-﻿namespace API.Middleware
+﻿namespace API.Models
 {
     internal class ErrorResponse
     {
