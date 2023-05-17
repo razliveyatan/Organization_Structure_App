@@ -13,8 +13,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="pages\" />
-    <Folder Include="src\interfaces\" />
-    <Folder Include="src\UI\" />
-    <Folder Include="src\services\" />
+    <Folder Include="src\types\interfaces\" />
+    <Folder Include="src\types\constants\" />
+    <Folder Include="src\UI\buttons\" />
+    <Folder Include="src\UI\modals\" />
+    <Folder Include="src\UI\customComponents\" />
   </ItemGroup>
 </Project>
