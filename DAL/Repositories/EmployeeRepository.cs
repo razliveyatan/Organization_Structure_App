@@ -17,6 +17,16 @@ namespace DAL.Repositories
             this.dbContext = dbContext;
         }
 
+        public async Task<ICollection<Employee>> GetAllEmployees()
+        {
+            return await dbContext.Employees.ToListAsync();
+        }
+
+        public async Task<Employee> GetEmployeeDetails(int employeeId)
+        {
+            return await dbContext.Employees.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+        }
+
         public async Task<ICollection<CustomTask>> GetCustomTasksByEmployee(int employeeId)
         {
             return await dbContext.CustomTasks.Where(x => x.EmployeeId == employeeId).ToListAsync();

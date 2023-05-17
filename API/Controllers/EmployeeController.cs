@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using BL.IServices;
 using BL.Services;
+using DAL.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,28 @@ namespace API.Controllers
             _employeeService = employeeService;
         }
 
+        [HttpGet("get-employee-details")]
+        public async Task<IActionResult> GetEmployeeDetails(int employeeId = 0)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new ValidationViewModel(ModelState));
+                }
+                var employee = await _employeeService.GetEmployeeDetails(employeeId);
+                if (employee == null) return Ok(new ValidationViewModel(ModelState));
+                return Ok(new ValidationViewModel(ModelState)
+                {
+                    RelatedDate = employee
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         [HttpGet("get-tasks-to-employee")]
         public async Task<IActionResult> GetCustomTasksToEmployee(int employeeId = 0)
         {            
@@ -45,7 +68,46 @@ namespace API.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            return StatusCode(500);
-        }   
+        }
+
+        [HttpPost("submit-report")]
+        public IActionResult SubmitReport(Report report)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new ValidationViewModel(ModelState));
+                }
+                _employeeService.SubmitReport(report);
+                return Ok(new ValidationViewModel(ModelState));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpGet("get-all-employees")]
+        public async Task<IActionResult> GetAllEmployees()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new ValidationViewModel(ModelState));
+                }
+                var employees = await _employeeService.GetAllEmployees();
+                if (employees == null) return Ok(new ValidationViewModel(ModelState));
+                return Ok(new ValidationViewModel(ModelState)
+                {
+                    RelatedDate = employees
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

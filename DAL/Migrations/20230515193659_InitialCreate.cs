@@ -148,7 +148,7 @@ namespace DAL.Migrations
             }
             migrationBuilder.Sql($@"
               INSERT INTO Employees (FirstName, LastName, EmployeeId, Position, Address, Phone, ManagerId, PictureUrl)
-                {sqlBuilder.ToString()};
+                {sqlBuilder.ToString()}
             ");
 
             for (int i = 0; i < 50; i++)
@@ -167,7 +167,7 @@ namespace DAL.Migrations
                 }
                 migrationBuilder.Sql($@"
               INSERT INTO CustomTasks (ManagerId, EmployeeId, CustomTaskText, CustomTaskDueDate, CustomTaskAssignDate)
-                {sqlBuilder.ToString()};
+                {sqlBuilder.ToString()}
             ");
             }
 
@@ -187,7 +187,7 @@ namespace DAL.Migrations
                 }
                 migrationBuilder.Sql($@"
               INSERT INTO Reports (ManagerId, EmployeeId, ReportText, ReportStatus, ReportDate)
-                {sqlBuilder.ToString()};
+                {sqlBuilder.ToString()}
             ");
             }
         }

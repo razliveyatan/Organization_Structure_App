@@ -23,22 +23,31 @@ namespace DAL.Repositories
         }
 
         public void DeleteCustomTask(CustomTask customTask)
-        {            
+        {
             dbContext.CustomTasks.Remove(customTask);
         }
 
         public async Task<CustomTask> GetCustomTaskById(int id)
-        {           
-                return await dbContext?.CustomTasks?.FirstOrDefaultAsync(x => x.CustomTaskId == id);                     
+        {
+            var response = await dbContext.CustomTasks.FirstOrDefaultAsync(x => x.CustomTaskId == id);
+            if (response != null)
+            {
+                return response;
+            }
+            return null;            
         }
 
         public async Task<CustomTask> EditCustomTask(CustomTask customTask)
         {
             var customTaskToEdit = await dbContext.CustomTasks.FirstOrDefaultAsync(x => x.CustomTaskId == customTask.CustomTaskId);
-            customTaskToEdit.CustomTaskText = customTask.CustomTaskText;
-            customTaskToEdit.CustomTaskDueDate = customTask.CustomTaskDueDate;
-            customTaskToEdit.CustomTaskAssignDate = customTask.CustomTaskAssignDate;            
-            return customTaskToEdit;
+            if (customTaskToEdit != null)
+            {
+                customTaskToEdit.CustomTaskText = customTask.CustomTaskText;
+                customTaskToEdit.CustomTaskDueDate = customTask.CustomTaskDueDate;
+                customTaskToEdit.CustomTaskAssignDate = customTask.CustomTaskAssignDate;
+                return customTaskToEdit;
+            }
+            return null;                       
         }
         public void SaveChange()
         {

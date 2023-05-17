@@ -25,7 +25,34 @@ namespace BL.Services
         public EmployeeService(EmployeeRepository employeeRepository, ReportRepository reportRepository)
         {
             _employeeRepository = employeeRepository;
-            _reportRepository = reportRepository;            
+            _reportRepository = reportRepository;
+        }
+
+        public async Task<ICollection<Employee>> GetAllEmployees()
+        {
+            try
+            {
+                return await _employeeRepository.GetAllEmployees();
+            }
+            catch (Exception ex)
+            {
+                //_loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(GetAllEmployees));
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        public async Task<Employee> GetEmployeeDetails(int employeeId)
+        {
+            try
+            {
+                return await _employeeRepository.GetEmployeeDetails(employeeId);
+            }
+            catch (Exception ex)
+            {
+                //_loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(GetEmployeeDetails));
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<ICollection<CustomTask>> GetCustomTasksToEmployee(int employeeId)
@@ -38,8 +65,7 @@ namespace BL.Services
             {
                 //_loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(GetCustomTasksToEmployee));
                 throw new Exception(ex.Message);
-            }
-            return null;
+            }            
         }       
 
         public void SubmitReport(Report report)
@@ -51,8 +77,7 @@ namespace BL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
-                //_loggerService.LogError(ex.Message, nameof(EmployeeService), nameof(SubmitReport));
+                throw new Exception(ex.Message);               
             }
         }
     }
