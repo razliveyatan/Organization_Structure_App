@@ -14,10 +14,7 @@ namespace DAL.Types
 
         public string CustomTaskText { get; set; } = string.Empty;
         public DateTime CustomTaskDueDate { get; set; }
-        public DateTime CustomTaskAssignDate { get; set; }
-
-
-        public Employee Manager { get; set; }
-        public Employee Employee { get; set; }
+        public DateTime CustomTaskAssignDate { get; set; }       
+        
     }
 }

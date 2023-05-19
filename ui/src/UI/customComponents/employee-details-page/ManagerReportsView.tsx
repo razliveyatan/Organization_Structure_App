@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ReportForm() {
+function ManagerReports() {
   return (
     <p>Hello world!</p>
   );
 }
 
-export default ReportForm;
+export default ManagerReports;

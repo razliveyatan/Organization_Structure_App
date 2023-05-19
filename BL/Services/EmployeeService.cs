@@ -55,7 +55,7 @@ namespace BL.Services
             }
         }
 
-        public async Task<ICollection<CustomTask>> GetCustomTasksToEmployee(int employeeId)
+        public async Task<Employee> GetCustomTasksToEmployee(int employeeId)
         {
             try
             {

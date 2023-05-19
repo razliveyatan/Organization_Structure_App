@@ -44,7 +44,7 @@ namespace BL.Services
                 //_loggerService.LogError(ex.Message,"ManagerService","AssignTaskToEmployee");
             }
         }
-        public async Task<ICollection<Report>> GetReportsFromSubordinates(int managerId)
+        public async Task<ICollection<Employee>> GetReportsFromSubordinates(int managerId)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace BL.Services
             return null;            
         }
 
-        public async Task<ICollection<CustomTask>> GetCustomTasksToEmployee(int employeeId)
+        public async Task<Employee> GetCustomTasksToEmployee(int employeeId)
         {
             try
             {

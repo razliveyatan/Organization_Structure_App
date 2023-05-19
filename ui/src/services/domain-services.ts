@@ -10,7 +10,7 @@ export const encodeData = (data: any) => {
     return params.join('&');
 }
 
-export const get = async (url: string, data: any = null): Promise<IResponse> => {
+export const get = async (url: string, data: any = null) => {
     if (data) {
         const qs = encodeData(data);
         url += `?${qs}`;
@@ -18,13 +18,17 @@ export const get = async (url: string, data: any = null): Promise<IResponse> => 
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('pragma', 'no-cache');
-    headers.append('cache-control', 'no-cache');
+    headers.append('Accept', '*/*');
+    headers.append('Accept-Encoding', 'gzip, deflate, br');
+    headers.append('Accept-Language', 'en-GB,en-US;q=0.9,en;q=0.8');
+    headers.append('Access-Control-Allow-Origin','localhost:3000')
+    //headers.append('pragma', 'no-cache');
+    //headers.append('cache-control', 'no-cache');
 
     const response = await fetch(url, {
         method: 'GET',
-        headers,
-        credentials: 'same-origin'
+        headers,       
+        credentials: 'same-origin',
     })
     return {
         data: await response.json(),

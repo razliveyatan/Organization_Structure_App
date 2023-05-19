@@ -1,6 +1,6 @@
 import { get , post} from "./domain-services";
 import { appConstants } from "../types/constants/constants";
-import { Employee, Report, CustomTask } from "../types/interfaces/interfaces";
+import { Employee, Report, CustomTask, IResponse } from "../types/interfaces/interfaces";
 
 export const getEmployeeDetails = async (employeeId: number) => {
     try {        
@@ -18,9 +18,17 @@ export const getCustomTasksToEmployee = async (employeeId: number) => {
     }
 }
 
-export const getAllEmployees = async () => {
+export const getAllEmployees = async ():Promise<any> => {
     try {
         return get(appConstants.getAllEmployeesApi);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const getsomething = async (): Promise<any> => {
+    try {
+        return get("get-something");
     } catch (error) {
         console.error(error);
     }

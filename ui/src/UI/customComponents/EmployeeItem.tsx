@@ -15,6 +15,7 @@ const EmployeeItem = (props: EmployeeItemProps) => {
       <div>
           <span>{props.employee.firstName}</span>
           <span>{props.employee.lastName}</span>
+          <span>{props.employee.position}</span>
           <Button label="View" onClick={viewEmployee}/> 
       </div>
   );

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{7
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ui", "UI\ui.esproj", "{F29C9C63-55BA-415F-A5E8-B01548BDFFBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{8FDA2509-2BED-4B85-BA76-503EF1CA0AF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{8FDA2509-2BED-4B85-BA76-503EF1CA0AF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{2452B117-78BC-4384-965C-3307B1D71B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{2452B117-78BC-4384-965C-3307B1D71B3C}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactapp", "API-UI\reactapp\reactapp.esproj", "{69A1E420-CFEC-450F-A4C4-85143CF01436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,12 @@ Global
 		{2452B117-78BC-4384-965C-3307B1D71B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2452B117-78BC-4384-965C-3307B1D71B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2452B117-78BC-4384-965C-3307B1D71B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A1E420-CFEC-450F-A4C4-85143CF01436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A1E420-CFEC-450F-A4C4-85143CF01436}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A1E420-CFEC-450F-A4C4-85143CF01436}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{69A1E420-CFEC-450F-A4C4-85143CF01436}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A1E420-CFEC-450F-A4C4-85143CF01436}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A1E420-CFEC-450F-A4C4-85143CF01436}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

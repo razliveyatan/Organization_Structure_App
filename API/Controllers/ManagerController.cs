@@ -30,7 +30,7 @@ namespace API.Controllers
                 if (reports == null) return Ok(new ValidationViewModel(ModelState));
                 return Ok(new ValidationViewModel(ModelState)
                 {
-                    RelatedDate = reports
+                    RelatedData = reports
                 });
             }
             catch (Exception ex)

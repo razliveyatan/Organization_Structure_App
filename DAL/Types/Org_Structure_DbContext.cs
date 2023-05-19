@@ -22,27 +22,26 @@ namespace DAL.Types
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.Employees)
-                .WithOne(e => e.Manager)
-                .HasForeignKey(e => e.ManagerId);
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.Reports)
-                .WithOne(e => e.Employee)
-                .HasForeignKey(e => e.EmployeeId);
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.Reports)
-                .WithOne()
-                .HasForeignKey(e => e.ManagerId);
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.CustomTasks)
-                .WithOne(e => e.Employee)
-                .HasForeignKey(e => e.EmployeeId);
-            modelBuilder.Entity<CustomTask>()
-                .HasOne(e => e.Manager)
-                .WithMany()
-                .HasForeignKey(e => e.ManagerId);
-            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Employee>()
+            //    .HasMany(e => e.Reports)
+            //    .WithOne()
+            //    .HasForeignKey(r => r.EmployeeId);
+            //modelBuilder.Entity<Employee>()
+            //    .HasMany(e => e.CustomTasks)
+            //    .WithOne()
+            //    .HasForeignKey(ct => ct.EmployeeId);
+            //modelBuilder.Entity<Manager>()
+            //    .HasMany(m => m.Employees)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.ManagerId);
+            //modelBuilder.Entity<Manager>()
+            //    .HasMany(m => m.Reports)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.ManagerId);
+            //modelBuilder.Entity<Manager>()
+            //    .HasMany(m => m.CustomTasks)
+            //    .WithOne()
+            //    .HasForeignKey(e => e.ManagerId);
         }
 
     }

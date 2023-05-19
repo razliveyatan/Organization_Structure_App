@@ -31,7 +31,7 @@ export interface Report {
     reportDate: Date,
     managerId: number,
     employee: Employee,
-    reportState: reportStatusEnum
+    reportStatus: reportStatusEnum
 }
 
 export interface IResponse {

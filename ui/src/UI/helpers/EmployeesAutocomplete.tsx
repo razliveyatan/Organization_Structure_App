@@ -15,16 +15,10 @@ const EmployeeAutocomplete = (props: EmployeesAutocompleteProps) => {
         }
     };
 
-    const renderItem = (employee: Employee) => {
-        return (
-            <span>`${employee.firstName} , ${employee.lastName}`</span>
-        )
-    }
-
     return (
         <Autocomplete
             dataSource={props.employees}
-            renderItem={(employee) => <span>{employee}</span>}
+            renderItem={(employee) => <span>{employee.lastName}, {employee.firstName}, { employee.position }</span>}
             onSelect={handleSelectEmployee}
             placeholder="Search for employees"
         />

@@ -19,22 +19,49 @@ namespace DAL.Repositories
 
         public async Task<ICollection<Employee>> GetAllEmployees()
         {
-            return await dbContext.Employees.ToListAsync();
+            var employees = await dbContext.Employees.ToListAsync();
+            foreach (var employee in employees)
+            {
+                employee.CustomTasks = await dbContext.CustomTasks.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
+                employee.Reports = await dbContext.Reports.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
+            }
+            return employees;
         }
 
         public async Task<Employee> GetEmployeeDetails(int employeeId)
         {
-            return await dbContext.Employees.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+            var employee = await dbContext.Employees.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+            employee.CustomTasks = await dbContext.CustomTasks.Where(x => x.EmployeeId == employeeId).ToListAsync();
+            employee.Reports = await dbContext.Reports.Where(x => x.EmployeeId == employeeId).ToListAsync();
+            return employee;
         }
 
-        public async Task<ICollection<CustomTask>> GetCustomTasksByEmployee(int employeeId)
+        public async Task<Employee> GetCustomTasksByEmployee(int employeeId)
         {
-            return await dbContext.CustomTasks.Where(x => x.EmployeeId == employeeId).ToListAsync();
+            var employee = await dbContext.Employees.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+            employee.CustomTasks = await dbContext.CustomTasks.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
+            return employee;
         }
 
-        public async Task<ICollection<Report>> GetReportsFromSubordinates(int managerId)
+        public async Task<ICollection<Employee>> GetReportsFromSubordinates(int managerId)
         {
-            return await dbContext.Reports.Where(x => x.ManagerId == managerId).ToListAsync();
+            var employees = await dbContext.Employees.Where(x => x.ManagerId == managerId).ToListAsync();
+            foreach (var employee in employees)
+            {
+                employee.Reports = await dbContext.Reports.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
+            }
+            return employees;
+        }
+
+        public async Task<ICollection<Employee>> GetManagerSubordinates(int managerId)
+        {
+            var employees = await dbContext.Employees.Where(x => x.ManagerId == managerId).ToListAsync();
+            foreach (var employee in employees)
+            {
+                employee.Reports = await dbContext.Reports.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
+                employee.CustomTasks = await dbContext.CustomTasks.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
+            }
+            return employees;
         }
 
         public void SaveChange()

@@ -4,13 +4,14 @@ using BL.Services;
 using DAL.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Text.Json;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase    {
+    public class EmployeeController : ControllerBase
+    {
         private readonly EmployeeService _employeeService;
         //private readonly LoggerService _loggerService;
 
@@ -38,7 +39,7 @@ namespace API.Controllers
                 if (employee == null) return Ok(new ValidationViewModel(ModelState));
                 return Ok(new ValidationViewModel(ModelState)
                 {
-                    RelatedDate = employee
+                    RelatedData = employee
                 });
             }
             catch (Exception ex)
@@ -47,28 +48,28 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("get-tasks-to-employee")]
-        public async Task<IActionResult> GetCustomTasksToEmployee(int employeeId = 0)
-        {            
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return Ok(new ValidationViewModel(ModelState));
-                }
-                var reports = await _employeeService.GetCustomTasksToEmployee(employeeId);
-                if (reports == null) return Ok(new ValidationViewModel(ModelState));
+        //[HttpGet("get-tasks-to-employee")]
+        //public async Task<IActionResult> GetCustomTasksToEmployee(int employeeId = 0)
+        //{            
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return Ok(new ValidationViewModel(ModelState));
+        //        }
+        //        var reports = await _employeeService.GetCustomTasksToEmployee(employeeId);
+        //        if (reports == null) return Ok(new ValidationViewModel(ModelState));
 
-                return Ok(new ValidationViewModel(ModelState)
-                {
-                    RelatedDate = reports
-                });
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //        return Ok(new ValidationViewModel(ModelState)
+        //        {
+        //            RelatedDate = reports
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
 
         [HttpPost("submit-report")]
         public IActionResult SubmitReport(Report report)
@@ -93,21 +94,19 @@ namespace API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return Ok(new ValidationViewModel(ModelState));
-                }
                 var employees = await _employeeService.GetAllEmployees();
                 if (employees == null) return Ok(new ValidationViewModel(ModelState));
                 return Ok(new ValidationViewModel(ModelState)
                 {
-                    RelatedDate = employees
+                    RelatedData = employees
                 });
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing the request.");
             }
-        }
+            
+        }        
     }
 }
