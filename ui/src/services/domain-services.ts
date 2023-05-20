@@ -41,6 +41,7 @@ export const post = async (url: string, data: any = null): Promise<IResponse> =>
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'localhost:3000'
         },
         credentials: 'same-origin',
         body: JSON.stringify(data)

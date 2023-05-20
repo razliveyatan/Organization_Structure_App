@@ -26,13 +26,6 @@ export const getAllEmployees = async ():Promise<any> => {
     }
 }
 
-export const getsomething = async (): Promise<any> => {
-    try {
-        return get("get-something");
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 export const getReportsFromSubordinates = async (managerId: number) => {
     try {
@@ -52,16 +45,30 @@ export const getManagerSubordinates = async (managerId: number) => {
 
 export const assignTasksToEmployee = async (task: CustomTask) => {
     try {
-        return post(appConstants.assignTasksToEmployeeApi, { task });
+        return post(appConstants.assignTasksToEmployeeApi, {
+            customTaskId: task.customTaskId,
+            managerId: task.managerId,
+            employeeId: task.employeeId,
+            customTaskText: task.customTaskText,
+            customTaskDueDate: task.customTaskDueDate,
+            customTaskAssignDate: task.customTaskAssignDate
+        });
     }
     catch (error) {
         console.error(error);
     }
 }
 
-export const submitReport = async (report: Report) => {
+export const submitReport = async (report: Report) => {    
     try {
-        return post(appConstants.submitReportApi, { report })            
+        return post(appConstants.submitReportApi, {
+            reportId: report.reportId,
+            employeeId: report.employeeId,
+            reportText: report.reportText,
+            reportDate: report.reportDate,
+            managerId: report.managerId,
+            reportStatus: report.reportStatus
+        })            
     } catch (error) {
         console.error(error);
     }

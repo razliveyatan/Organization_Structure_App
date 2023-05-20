@@ -13,18 +13,25 @@ const EmployeeReportsView = (props: EmployeeFiledReportsProps) => {
     return (
         <>
             <h2>{props.reportsForText}</h2>
-            <div className="reports-list-container">
-
+            <div className="section-headers">
+                <div className="reportText">Title</div>
+                <div className="reportDate">Date</div>
+                <div className="reportStatus">Status</div>
+            </div>
+            <div className="employee-section-container">
                 {
                     filedReports && filedReports.map((report: Report) => {
                         return (
-                            <div className="report-file-item" key={report.reportId}>
+                            <div className="section-item" key={report.reportId}>
                                 <span>{report.reportText}</span>
                                 <span>{new Date(report.reportDate).toDateString()}</span>
                                 <span>{reportStatusEnum[report.reportStatus]}</span>
                             </div>
                         );
                     })
+                }
+                {
+                    !filedReports || filedReports.length === 0 ? <div className="report-file-item">No Filed Reports</div> : null
                 }
             </div>
         </>

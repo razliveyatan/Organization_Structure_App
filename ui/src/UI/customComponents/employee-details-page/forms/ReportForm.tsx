@@ -27,11 +27,11 @@ const ReportForm = (props: ReportFormProps) => {
     }
 
     const handleSubmitReport = async () => {
-        if (inputValue !== '' && selectValue > 0) {
+        if (inputValue !== '' && selectValue > -1) {
             const report = {
                 reportId:0,
                 reportText: inputValue,
-                reportStatus: selectValue,
+                reportStatus: (selectValue),
                 employeeId: props.employee.employeeId,
                 managerId: props.employee.managerId,
                 reportDate: new Date(),
@@ -61,7 +61,7 @@ const ReportForm = (props: ReportFormProps) => {
                         ))}
                     </select>
                 </div>
-                <Button label="Save" onClick={handleSubmitReport} />
+                <Button label="Save" onClick={handleSubmitReport} customClass={null } />
                 <ToastContainer />
             </div>
         );

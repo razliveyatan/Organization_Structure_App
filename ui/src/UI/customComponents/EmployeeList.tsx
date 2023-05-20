@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { getAllEmployees} from '../../services/data-service';
 import EmployeeAutocomplete from '../helpers/EmployeesAutocomplete'; 
 import { Employee } from '../../types/interfaces/interfaces';
-import EmployeeItem from './EmployeeItem';
 import Modal from '../modals/Modal';
 import EmployeeDetails from './employee-details-page/EmployeeDetailsGeneral';
 import { toast } from 'react-toastify';
@@ -31,14 +30,14 @@ const EmployeeList = () => {
         fetchData(); 
     }, []);
 
-    const handleEmployeeSearchClick = (employee: Employee) => {
-        if (employee) {
-            const results = employees.filter((emp: Employee) => emp.employeeId === employee.employeeId);
-            if (results && results.length > 0) {
-                setEmployeeResults(results);
-            }
-        }
-    }
+    //const handleEmployeeSearchClick = (employee: Employee) => {
+    //    if (employee) {
+    //        const results = employees.filter((emp: Employee) => emp.employeeId === employee.employeeId);
+    //        if (results && results.length > 0) {
+    //            setEmployeeResults(results);
+    //        }
+    //    }
+    //}
 
     const handleCloseModal = () => {
         setIsOpen(false);
@@ -61,13 +60,6 @@ const EmployeeList = () => {
                 }
                
             </div>
-            {/*<div className={`${employeeResults.length > 0 ? 'employee-results' : 'hidden'}`}>*/}
-            {/*    {*/}
-            {/*        employeeResults.map((employee: Employee) => {*/}
-            {/*            return (<EmployeeItem onViewEmployee={handleEmployeeClick} key={employee.employeeId} employee={employee} />)*/}
-            {/*        })*/}
-            {/*    }*/}
-            {/*</div>*/}
             {
                 isOpen && viewEmployee && <Modal isOpen={isOpen} onClose={handleCloseModal}>
                     <EmployeeDetails employee={viewEmployee} key={viewEmployee.employeeId} />

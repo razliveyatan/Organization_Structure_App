@@ -123,7 +123,7 @@
 .modal-overlay {
     z-index: 999;
     width: 100vw;
-    height: 100%;
+    min-height: 1400px;
     position: absolute;
     top: 0;
     left:0;
@@ -139,7 +139,7 @@
     background: white;
     width: 70%;
     height: 85%;
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 10px;
 }
 
@@ -177,6 +177,12 @@ h2 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.employee-card-name {
+    font-size:32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .employee-details-top {
     display: flex;
     align-items: center;
@@ -193,8 +199,17 @@ h2 {
 
 .employee-details-top-right,
 .employee-details-bottom-right {
-    margin-left: 20px;
+    margin-left: 20px;    
 }
+
+    .employee-details-top-right {
+
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap:2rem;
+        justify-content:center;
+    }
 
     .employee-details-bottom-right label {
         font-weight: bold;
@@ -207,7 +222,9 @@ h2 {
     .employee-details-bottom-right button {
         margin-top: 10px;
     }
-
+    .margin-left {
+        margin-left:1rem;
+    }
 .employee-details-bottom {
     margin-top: 20px;
     display: flex;
@@ -215,7 +232,7 @@ h2 {
     align-items: start;
 }
 
-    .employee-details-bottom > div {
+    .employee-details-bottom > .employee-section-container {
         border: 1px solid #ccc;
         border-radius: 4px;
         padding: 10px;
@@ -238,6 +255,43 @@ h2 {
 .employee-details-bottom span {
     margin-right: 10px;
 }
+
+.section-headers {
+    display: flex;
+    margin-bottom: 0;
+    border: 0;
+    padding: 10px;
+    text-align:start;
+    width:80%;
+}
+.section-headers > div {
+    margin-right:7rem;
+}
+.section-item {
+    margin-bottom: 1rem;
+}
+.section-item > span {
+    margin-right:4rem;    
+}
+
+.report-form-body, .assign-task-form-body {
+    margin-bottom: 1rem;
+}
+    .report-form-body input,
+    .assign-task-form-body input {
+        width: 300px;
+        height: 20px;
+        margin-right: 2rem;
+    }
+.report-form-body select {
+    width: 100px;
+    border-width: 2px;
+    padding:2px 1px;
+}
+.assign-task-form-container {
+    text-align:center;
+}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {

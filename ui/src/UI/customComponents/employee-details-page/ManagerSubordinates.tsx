@@ -12,6 +12,7 @@ type managerSubordinateProps = {
 }
 const ManagerSubordinates = (props: managerSubordinateProps) => {
     const subordinates = props.subordinates;
+    const [sub, setSubEmployee] = useState<Employee>({} as Employee);
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOnSubmitSucces = (task: CustomTask) => {
@@ -22,28 +23,37 @@ const ManagerSubordinates = (props: managerSubordinateProps) => {
     }
 
     const onSubordinateAssignTaskClick = (employee: Employee) => {
-        return (
-            <Modal isOpen={true} onClose={() => { setIsOpen(false) }} >
-                <AssignTaskForm employee={employee} handleOnSuccess={handleOnSubmitSucces} />
-            </Modal>
-        )
+        if (employee) {
+            setIsOpen(true);
+            setSubEmployee(employee);
+        }
     }
 
     return (
-        <div className="my-subordinates-container">
-            <h2>{props.title}</h2>
+        <>
+          <h2>{props.title}</h2>
+            <div className="section-headers">
+                <div className="sub-fullName">Full Name</div>
+                <div className="sub-position">Position</div>
+            </div>
+  
+            <div className="employee-section-container">           
             {
                 subordinates && subordinates.map((sub: Employee) => {
                     return (
-                        <div className="subordinate-item" key={sub.employeeId}>
+                        <div className="section-item" key={sub.employeeId}>
                             <span>{sub.firstName}, {sub.lastName}</span>
                             <span>{sub.position}</span>
-                            <Button label="Assign Task" onClick={() => onSubordinateAssignTaskClick(sub)} />
+                            <Button label="Assign Task" onClick={() => onSubordinateAssignTaskClick(sub)} customClass={null } />
                         </div>
                     );
                 })
             }
-        </div>
+            <Modal isOpen={isOpen} onClose={() => { setIsOpen(false) }} >
+                <AssignTaskForm employee={sub} handleOnSuccess={handleOnSubmitSucces} />
+            </Modal>
+            </div>
+        </>
     )
 }
 

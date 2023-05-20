@@ -69,32 +69,29 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
     }
     return (
         <div className="general-employee-details-container">
-            <h2>Employee Card</h2>
+            <div className="employee-card-name">{updateEmployee.firstName + " " + updateEmployee.lastName} Employee Card</div>
             <div className="employee-details-top">
                 <div className="employee-details-top-left">
                     <img src={updateEmployee.pictureUrl ? updateEmployee.pictureUrl : demoImageUrl} alt={updateEmployee.firstName + ", " + updateEmployee.lastName} />
                 </div>
                 <div className="employee-details-top-right">
-                    <div>
-                        <label>Name:</label>
-                        <span>{updateEmployee.firstName + ", " + updateEmployee.lastName}</span>
-                    </div>
-                    <div>
-                        <label>Position:</label>
+                    <div className="employee-details-top-right-inner">
+                        <label><b>Position:</b> </label>
                         <span>{updateEmployee.position}</span>
                     </div>
+                    {
+                        updateEmployee.managerId && updateEmployee.managerFullName ? <div className="employee-details-top-right-inner">
+                            <label><b>Manager:</b> </label>
+                            <span>{updateEmployee.managerFullName}</span>
+                            <Button label="Report" onClick={openReportForm} customClass={'margin-left' } />
+                        </div> : null
+                    }
                 </div>
-                {
-                    updateEmployee.managerId && updateEmployee.managerFullName ? <div className="employee-details-bottom-right">
-                        <label>Manager:</label>
-                        <span>{updateEmployee.managerFullName}</span>
-                        <Button label="Report" onClick={openReportForm} />
-                    </div> : null
-                }
+                
             </div>
             <div className="employee-details-bottom">
                 {
-                    updateEmployee && updateEmployee.customTasks.length > 0 ? <EmployeeAssignedTasks tasksForText='My Tasks' tasks={updateEmployee.customTasks} /> : null
+                    updateEmployee ? <EmployeeAssignedTasks tasksForText='My Tasks' tasks={updateEmployee.customTasks} /> : null
                 }
                 {
                     !loading && updateEmployee && subordinates.length > 0 ? <ManagerSubordinates title={'My Subordinates'} onSubordinateAssignTaskClick={handleOnAssignTaskSuccess} subordinates={subordinates} /> : null
@@ -103,7 +100,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 {/*    updateEmployee && updateEmployee.employees.length > 0 && mySubordinatesTasks && mySubordinatesTasks.length > 0 ? <EmployeeAssignedTasks tasksForText='My Subordinates Tasks' tasks={mySubordinatesTasks} /> : null*/}
                 {/*}*/}
                 {
-                    myFiledReports.length > 0 ? <EmployeeReportsView reports={myFiledReports} reportsForText='My Reports' /> : null
+                    updateEmployee ? <EmployeeReportsView reports={myFiledReports} reportsForText='My Reports' /> : null
                 }
 
             </div>

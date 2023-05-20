@@ -11,17 +11,17 @@ const EmployeeAssignedTasks = (props: EmployeeAssignedTasksProps) => {
     return (
         <>
             <h2>{props.tasksForText}</h2>
-            <div className="assigned-tasks-headers">
+            <div className="section-headers">
                 <div className="taskName">Task</div>
                 <div className="taskDate">Date</div>
             </div>
-            <div className="assigned-tasks-container">                
+            <div className="employee-section-container">                
                 {
                     assignedTasks && assignedTasks.length > 0 && assignedTasks.map((task: CustomTask) => {
                         return (
-                            <div className="assigned-tasks-item" key={task.customTaskId}>
-                                <div className="taskName">{task.customTaskText}</div>
-                                <div className="taskDate">{new Date(task.customTaskAssignDate).toDateString()}</div>
+                            <div className="section-item" key={task.customTaskId}>
+                                <span className="taskName">{task.customTaskText}</span>
+                                <span className="taskDate">{new Date(task.customTaskAssignDate).toDateString()}</span>
                             </div>
                         );
                     })

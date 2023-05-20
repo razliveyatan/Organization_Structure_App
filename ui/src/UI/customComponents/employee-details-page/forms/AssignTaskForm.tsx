@@ -11,7 +11,7 @@ type AssignTaskFormProps = {
 }
 const AssignTaskForm = (props: AssignTaskFormProps) => {
     const [inputValue, setInputValue] = useState('');
-    const [dueDate, setTaskDueDate] = useState('DD/MM/YYYY');
+    const [dueDate, setTaskDueDate] = useState('YYYY/MM/DD');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
@@ -27,6 +27,7 @@ const AssignTaskForm = (props: AssignTaskFormProps) => {
     const handleAssignTask = async () => {
         if (inputValue !== '' && dueDate !== '') {
             const task = {
+                customTaskId: 0,
                 customTaskText: inputValue,
                 customTaskAssignDate: new Date(),
                 customTaskDueDate: new Date(dueDate),
@@ -38,7 +39,7 @@ const AssignTaskForm = (props: AssignTaskFormProps) => {
             if (submitAssignTaskResponse && submitAssignTaskResponse.statusCode === 200) {                
                 toast('Task Assigned Successfully!');
                 setInputValue('');
-                setTaskDueDate('DD/MM/YYYY');
+                setTaskDueDate('YYYY/MM/DD');
                 props.handleOnSuccess(task);
             }
             else {
@@ -55,7 +56,7 @@ const AssignTaskForm = (props: AssignTaskFormProps) => {
                 <input type='text' placeholder="Task Text" onChange={handleInputChange} value={inputValue} />
                 <input type='text' placeholder="DD/MM/YYYY" onChange={handleDueDateChange} value={dueDate} />
             </div>
-            <Button label="Save" onClick={handleAssignTask} />
+            <Button label="Save" onClick={handleAssignTask} customClass={null } />
             <ToastContainer />
         </div>
     );

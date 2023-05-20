@@ -16,7 +16,7 @@ const EmployeeItem = (props: EmployeeItemProps) => {
           <span>{props.employee.firstName}</span>
           <span>{props.employee.lastName}</span>
           <span>{props.employee.position}</span>
-          <Button label="View" onClick={viewEmployee}/> 
+          <Button label="View" onClick={viewEmployee} customClass={ null} /> 
       </div>
   );
 }
