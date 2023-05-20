@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { debounce } from 'lodash';
+
 type AutocompleteProps = {
     dataSource: any[],
     renderItem: (item: any) => React.ReactNode,
@@ -16,11 +16,7 @@ const Autocomplete = (props: AutocompleteProps) => {
             return item.firstName.toLowerCase().includes(event.target.value.toLowerCase());
         });
         setFilteredData(filtered);
-    };
-
-    const debounceInputChange = debounce((event: React.ChangeEvent<HTMLInputElement>) => {
-        handleInputChange(event);
-    })
+    };    
 
     const handleSelect = (item: any) => {
         setInputValue('');
@@ -30,7 +26,7 @@ const Autocomplete = (props: AutocompleteProps) => {
 
     return (
         <div className='search-container'>
-            <input type="text" value={inputValue} onChange={handleInputChange} onInput={debounceInputChange} placeholder={props.placeholder} />
+            <input type="text" value={inputValue} onChange={handleInputChange} placeholder={props.placeholder} />
             <div className='search-results'>
                 {filteredData.map((item, index) => (
                     <div className='employee-item' key={item.employeeId

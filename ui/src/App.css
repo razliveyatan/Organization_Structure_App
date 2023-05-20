@@ -1,40 +1,41 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .search-container {
@@ -67,7 +68,7 @@
 
     .search-results::-webkit-scrollbar-thumb {
         border-radius: 8px;
-        background-color: rgb(0, 89, 134,.5);        
+        background-color: rgb(0, 89, 134,.5);
     }
 
 .search-container input {
@@ -89,7 +90,7 @@
     transition: border-color 0.3s ease;
     background-color: rgb(0, 89, 134,.5);
     cursor: pointer;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 }
 
     .search-container .employee-item:hover {
@@ -119,4 +120,150 @@
         opacity: 1;
     }
 
+.modal-overlay {
+    z-index: 999;
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left:0;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 70%;
+    height: 85%;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.modal-close {
+    margin-left: auto;
+}
+
+/*.general-employee-details-container h2 {
+    margin-top: 0;
+}
+
+.employee-details-top{
+    display:flex;    
+}
+
+.employee-details-top-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+}
+.employee-details-bottom-right{
+    border-top:1px solid rgba(233, 236, 238, 0.5);
+}*/
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Employee Card styles */
+.general-employee-details-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.employee-details-top {
+    display: flex;
+    align-items: center;
+}
+
+.employee-details-top-left {
+    width: 200px;
+}
+
+    .employee-details-top-left img {
+        max-width: 100%;
+        border-radius: 50%;
+    }
+
+.employee-details-top-right,
+.employee-details-bottom-right {
+    margin-left: 20px;
+}
+
+    .employee-details-bottom-right label {
+        font-weight: bold;
+    }
+
+    .employee-details-bottom-right span {
+        margin-right: 10px;
+    }
+
+    .employee-details-bottom-right button {
+        margin-top: 10px;
+    }
+
+.employee-details-bottom {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+    .employee-details-bottom > div {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: start;
+        width: 80%;
+    }
+
+.assigned-tasks-item {
+    display:flex;
+}
+.taskName {
+    margin-right: 50%
+}
+
+.employee-details-bottom label {
+    font-weight: bold;
+}
+
+.employee-details-bottom span {
+    margin-right: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .employee-details-top {
+        flex-direction: column;
+    }
+
+    .employee-details-top-left,
+    .employee-details-top-right,
+    .employee-details-bottom-right {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 20px;
+    }
+
+    .employee-details-top-left {
+        width: 150px;
+    }
+
+    .employee-details-top-right,
+    .employee-details-bottom-right {
+        margin-top: 0;
+    }
+}

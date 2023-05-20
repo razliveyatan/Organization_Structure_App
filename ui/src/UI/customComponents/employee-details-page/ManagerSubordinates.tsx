@@ -35,7 +35,7 @@ const ManagerSubordinates = (props: managerSubordinateProps) => {
             {
                 subordinates && subordinates.map((sub: Employee) => {
                     return (
-                        <div className="subordinate-item">
+                        <div className="subordinate-item" key={sub.employeeId}>
                             <span>{sub.firstName}, {sub.lastName}</span>
                             <span>{sub.position}</span>
                             <Button label="Assign Task" onClick={() => onSubordinateAssignTaskClick(sub)} />

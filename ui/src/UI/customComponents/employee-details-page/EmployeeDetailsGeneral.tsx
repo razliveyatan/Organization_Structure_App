@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useCallback , useEffect} from 'react';
 import { Employee, Report, CustomTask } from '../../../types/interfaces/interfaces';
 import EmployeeAssignedTasks from './EmployeeAssignedTasks';
 import ManagerSubordinates from './ManagerSubordinates';
@@ -6,6 +6,9 @@ import EmployeeReportsView from './EmployeeReportsView';
 import Button from '../../buttons/Button';
 import Modal from '../../modals/Modal';
 import ReportForm from '../../customComponents/employee-details-page/forms/ReportForm';
+import { getManagerSubordinates } from '../../../services/data-service';
+import { toast } from 'react-toastify';
+
 
 
 
@@ -13,29 +16,35 @@ type EmployeeDetailsProps = {
     employee: Employee
 }
 const EmployeeDetails = (props: EmployeeDetailsProps) => {
-    const mySubordinatesTasks = props.employee.employees ? props.employee.employees.map(emp => emp.customTasks?.filter(task => task.managerId === props.employee.employeeId)).flat() : [];
+    const [subordinates, setSubordinates]: any = useState([]);
     const myFiledReports = props.employee.reports.filter(report => report.employeeId === props.employee.employeeId);
-    const [updateEmployee, setUpdateEmployee]:any = useState(props.employee);
+    const [updateEmployee, setUpdateEmployee]: any = useState(props.employee);
+    const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const demoImageUrl = 'https://as2.ftcdn.net/v2/jpg/00/65/77/27/1000_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg';
 
 
-    //const fetchData = useCallback(async () => {
-    //    try {
-    //        const managerSubordinatesReponse = await ();
-    //        if (employeesReponse && employeesReponse.data) {
-    //            setEmployees(employeesReponse.data.relatedData);
-    //            console.log('getEmployees');
-    //        }
-    //    } catch (error: any) {
-    //        toast('Error getting employees' + error.message, { type: 'error' })
-    //    }
-    //}, []);
+    const fetchData = useCallback(async () => {
 
-    //useEffect(() => {
-    //    fetchData();
-    //}, []);
+        if (props.employee.isManager) {
+            try {
+                setLoading(true);
+                const subordinatesReponse = await getManagerSubordinates(props.employee.employeeId);
+                if (subordinatesReponse && subordinatesReponse.data) {
+                    setSubordinates(subordinatesReponse.data.relatedData);
+                    setLoading(false);
+                }
+            } catch (error: any) {
+                toast('Error getting employees' + error.message, { type: 'error' })
+            }
+        }
+    }, []);
 
-    const handleOnSubmitSucces = (report:Report) => {
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const handleOnSubmitSucces = (report: Report) => {
         if (report) {
             setUpdateEmployee({ ...updateEmployee, reports: [...updateEmployee.reports, report] });
             setIsOpen(false);
@@ -60,20 +69,25 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
     }
     return (
         <div className="general-employee-details-container">
+            <h2>Employee Card</h2>
             <div className="employee-details-top">
                 <div className="employee-details-top-left">
-                    <img src={updateEmployee.pictureUrl} alt={updateEmployee.firstName + ", " + updateEmployee.lastName} />
+                    <img src={updateEmployee.pictureUrl ? updateEmployee.pictureUrl : demoImageUrl} alt={updateEmployee.firstName + ", " + updateEmployee.lastName} />
                 </div>
                 <div className="employee-details-top-right">
-                    <label>Name</label>
-                    <span>{updateEmployee.firstName + ", " + updateEmployee.lastName}</span>
-                    <label>Position</label>
-                    <span>{updateEmployee.position}</span>
+                    <div>
+                        <label>Name:</label>
+                        <span>{updateEmployee.firstName + ", " + updateEmployee.lastName}</span>
+                    </div>
+                    <div>
+                        <label>Position:</label>
+                        <span>{updateEmployee.position}</span>
+                    </div>
                 </div>
                 {
-                    updateEmployee.managerId ? <div className="employee-details-bottom-right">
-                        <label>Manager</label>
-                        <span>{updateEmployee.manager?.firstName + ", " + updateEmployee.manager?.lastName}</span>
+                    updateEmployee.managerId && updateEmployee.managerFullName ? <div className="employee-details-bottom-right">
+                        <label>Manager:</label>
+                        <span>{updateEmployee.managerFullName}</span>
                         <Button label="Report" onClick={openReportForm} />
                     </div> : null
                 }
@@ -82,14 +96,14 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                 {
                     updateEmployee && updateEmployee.customTasks.length > 0 ? <EmployeeAssignedTasks tasksForText='My Tasks' tasks={updateEmployee.customTasks} /> : null
                 }
-                {/*{*/}
-                {/*    updateEmployee && updateEmployee.employees.length > 0 ? <ManagerSubordinates title={'My Subordinates'} onSubordinateAssignTaskClick={handleOnAssignTaskSuccess} subordinates={updateEmployee.employees} /> : null*/}
-                {/*}*/}
+                {
+                    !loading && updateEmployee && subordinates.length > 0 ? <ManagerSubordinates title={'My Subordinates'} onSubordinateAssignTaskClick={handleOnAssignTaskSuccess} subordinates={subordinates} /> : null
+                }
                 {/*{*/}
                 {/*    updateEmployee && updateEmployee.employees.length > 0 && mySubordinatesTasks && mySubordinatesTasks.length > 0 ? <EmployeeAssignedTasks tasksForText='My Subordinates Tasks' tasks={mySubordinatesTasks} /> : null*/}
                 {/*}*/}
                 {
-                    myFiledReports.length > 0 ? <EmployeeReportsView reports={myFiledReports }  reportsForText='My Reports'/> : null
+                    myFiledReports.length > 0 ? <EmployeeReportsView reports={myFiledReports} reportsForText='My Reports' /> : null
                 }
 
             </div>
@@ -98,7 +112,7 @@ const EmployeeDetails = (props: EmployeeDetailsProps) => {
                     <ReportForm employee={updateEmployee} handleOnSuccess={handleOnSubmitSucces} />
                 </Modal>
             }
-            
+
         </div>
     );
 }

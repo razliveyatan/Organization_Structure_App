@@ -12,12 +12,15 @@ const EmployeeList = () => {
     const [employeeResults, setEmployeeResults]: any = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [viewEmployee, setViewEmployee]: any = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const fetchData = useCallback(async () => {
         try {
+            setLoading(true);
             const employeesReponse = await getAllEmployees();
             if (employeesReponse && employeesReponse.data) {
-                setEmployees(employeesReponse.data.relatedData);                
+                setEmployees(employeesReponse.data.relatedData);
+                setLoading(false);
             }
         } catch (error: any) {
             toast('Error getting employees' + error.message, { type: 'error' })
@@ -49,10 +52,14 @@ const EmployeeList = () => {
     }
 
     return (
+
         <div className="employee-list">
             <h1 className="page-title">Employee List</h1>
             <div className="search-bar-container">
-                <EmployeeAutocomplete employees={employees} onEmployeeAutocompleteClick={handleEmployeeClick} />
+                {
+                    !loading && <EmployeeAutocomplete employees={employees} onEmployeeAutocompleteClick={handleEmployeeClick} />
+                }
+               
             </div>
             {/*<div className={`${employeeResults.length > 0 ? 'employee-results' : 'hidden'}`}>*/}
             {/*    {*/}

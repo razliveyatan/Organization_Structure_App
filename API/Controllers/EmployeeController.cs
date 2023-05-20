@@ -106,7 +106,7 @@ namespace API.Controllers
                 throw new Exception(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing the request.");
             }
-            
-        }        
+        }
+
     }
 }

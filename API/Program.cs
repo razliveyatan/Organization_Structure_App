@@ -20,9 +20,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<ILoggerService, LoggerService>();
 builder.Services.AddScoped<EmployeeService>();
-//builder.Services.AddScoped<CustomTaskService>();
-//builder.Services.AddScoped<ReportService>();
 builder.Services.AddScoped<ManagerService>();
+builder.Services.AddScoped<ManagerRepository>();
 builder.Services.AddScoped<ReportRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddDbContext<Org_Structure_DbContext>((options) => {

@@ -56,5 +56,29 @@ namespace API.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [HttpGet("get-manager-subordinates")]
+        public async Task<IActionResult> GetManagerSubordinates(int managerId = 0)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new ValidationViewModel(ModelState));
+                }
+                var subordinates = await _managerService.GetManagerSubordinates(managerId);
+                if (subordinates == null) return Ok(new ValidationViewModel(ModelState));
+                return Ok(new ValidationViewModel(ModelState)
+                {
+                    RelatedData = subordinates
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        
     }
 }

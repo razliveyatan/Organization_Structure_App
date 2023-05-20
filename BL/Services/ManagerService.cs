@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    public class ManagerService : IManagerService, IEmployeeService, ITaskService
+    public class ManagerService : IManagerService, ITaskService
     {
         //private readonly LoggerService _loggerService;
         private readonly EmployeeRepository _employeeRepository;
         private readonly CustomTaskRepository _taskRepository;
+        private readonly ManagerRepository _managerRepository;
 
         //public ManagerService(EmployeeRepository employeeRepository, CustomTaskRepository taskRepository, LoggerService loggerService)
         //{
@@ -22,10 +23,11 @@ namespace BL.Services
         //    _loggerService = loggerService;
         //}
 
-        public ManagerService(EmployeeRepository employeeRepository, CustomTaskRepository taskRepository)
+        public ManagerService(EmployeeRepository employeeRepository, CustomTaskRepository taskRepository, ManagerRepository managerRepository)
         {
             _employeeRepository = employeeRepository;
-            _taskRepository = taskRepository;            
+            _taskRepository = taskRepository;   
+            _managerRepository= managerRepository;
         }
 
         public void AssignTaskToEmployee(CustomTask customTask)
@@ -44,6 +46,20 @@ namespace BL.Services
                 //_loggerService.LogError(ex.Message,"ManagerService","AssignTaskToEmployee");
             }
         }
+
+        public async Task<ICollection<Employee>> GetManagerSubordinates(int managerId)
+        {
+            try
+            {
+                return await _managerRepository.GetManagerSubordinates(managerId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return null;
+        }        
+
         public async Task<ICollection<Employee>> GetReportsFromSubordinates(int managerId)
         {
             try
@@ -56,20 +72,6 @@ namespace BL.Services
                 //_loggerService.LogError(ex.Message, "ManagerService", "GetReportsFromSubordinates");
             }
             return null;            
-        }
-
-        public async Task<Employee> GetCustomTasksToEmployee(int employeeId)
-        {
-            try
-            {
-                return await _employeeRepository.GetCustomTasksByEmployee(employeeId);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-                //_loggerService.LogError(ex.Message, "ManagerService", "GetCustomTasksToEmployee");
-            }
-            return null;            
-        }
+        }    
     }
 }

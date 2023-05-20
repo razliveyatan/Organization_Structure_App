@@ -18,7 +18,8 @@ export interface Employee {
     pictureUrl: string,
     position: string,
     managerId: number,
-    manager: Employee | null,
+    managerFullName: string,
+    isManager: boolean,
     employees: Employee[] | [],
     customTasks: CustomTask[] | [],
     reports: Report[] | []

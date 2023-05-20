@@ -42,6 +42,14 @@ export const getReportsFromSubordinates = async (managerId: number) => {
     }
 }
 
+export const getManagerSubordinates = async (managerId: number) => {
+    try {
+        return get(appConstants.getReportsFromSubordinatesApi, { managerId });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const assignTasksToEmployee = async (task: CustomTask) => {
     try {
         return post(appConstants.assignTasksToEmployeeApi, { task });

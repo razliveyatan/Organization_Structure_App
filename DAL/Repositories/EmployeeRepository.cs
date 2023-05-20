@@ -10,6 +10,7 @@ namespace DAL.Repositories
 {
     public class EmployeeRepository
     {
+
         private readonly Org_Structure_DbContext dbContext;
 
         public EmployeeRepository(Org_Structure_DbContext dbContext)
@@ -30,9 +31,18 @@ namespace DAL.Repositories
 
         public async Task<Employee> GetEmployeeDetails(int employeeId)
         {
-            var employee = await dbContext.Employees.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
-            employee.CustomTasks = await dbContext.CustomTasks.Where(x => x.EmployeeId == employeeId).ToListAsync();
-            employee.Reports = await dbContext.Reports.Where(x => x.EmployeeId == employeeId).ToListAsync();
+            Employee employee = new();
+            employee = await dbContext.Employees.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+            if (employee != null)
+            {
+                employee.CustomTasks = await dbContext.CustomTasks.Where(x => x.EmployeeId == employeeId).ToListAsync();
+                employee.Reports = await dbContext.Reports.Where(x => x.EmployeeId == employeeId).ToListAsync();
+                var manager = await dbContext.Employees.FirstOrDefaultAsync(x => x.EmployeeId == employee.ManagerId);
+                if (manager != null)
+                {
+                    employee.ManagerFullName = manager.FirstName + " " + manager.LastName;
+                }
+            }
             return employee;
         }
 
@@ -53,22 +63,10 @@ namespace DAL.Repositories
             return employees;
         }
 
-        public async Task<ICollection<Employee>> GetManagerSubordinates(int managerId)
-        {
-            var employees = await dbContext.Employees.Where(x => x.ManagerId == managerId).ToListAsync();
-            foreach (var employee in employees)
-            {
-                employee.Reports = await dbContext.Reports.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
-                employee.CustomTasks = await dbContext.CustomTasks.Where(x => x.EmployeeId == employee.EmployeeId).ToListAsync();
-            }
-            return employees;
-        }
-
         public void SaveChange()
         {
             dbContext.SaveChanges();
         }
-
 
     }
 }

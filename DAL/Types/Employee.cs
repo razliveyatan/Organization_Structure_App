@@ -10,21 +10,17 @@ public class Employee
     public string PictureUrl { get; set; } = string.Empty;
 
     public int? ManagerId { get; set; }    
+    public string ManagerFullName { get; set; } = string.Empty; 
+
+    public bool IsManager { get; set; } = false;
+    
+
     //public Manager Manager { get; set; }
 
     public ICollection<Report>? Reports { get; set; }
 
     public ICollection<CustomTask>? CustomTasks { get; set; }
-
-    //public ICollection<Employee>? Employees { get; set; }
-
-
-    public Employee()
-    {
-        //Employees = new HashSet<Employee>();
-        Reports = new HashSet<Report>();
-        CustomTasks = new HashSet<CustomTask>();
-    }
+    
 
 
 }

@@ -20,15 +20,16 @@ const ReportForm = (props: ReportFormProps) => {
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue: string = (event.target.value);
-        const enumValue = reportStatusEnum[selectedValue as keyof typeof reportStatusEnum];
-        if (enumValue) {
+        if (selectedValue !== '') {
+            const enumValue = parseInt(selectedValue);
             setSelectValue(enumValue);
-        }
+        }        
     }
 
     const handleSubmitReport = async () => {
         if (inputValue !== '' && selectValue > 0) {
             const report = {
+                reportId:0,
                 reportText: inputValue,
                 reportStatus: selectValue,
                 employeeId: props.employee.employeeId,
@@ -55,8 +56,8 @@ const ReportForm = (props: ReportFormProps) => {
                 <div className="report-form-body">
                     <input type='text' placeholder="Report Text" onChange={handleInputChange} value={inputValue} />
                     <select name="reportStatus" id="reportStatus" onChange={handleSelectChange}>
-                        {Object.keys(reportStatusEnum).map((key) => (
-                            <option key={key} value={key}>{key}</option>
+                        {(Object.keys(reportStatusEnum).filter((v) => isNaN(Number(v)),) as (keyof typeof reportStatusEnum)[]).map((key:any,index:number) => (
+                            <option key={reportStatusEnum[key]} value={reportStatusEnum[key]}>{key}</option>
                         ))}
                     </select>
                 </div>
